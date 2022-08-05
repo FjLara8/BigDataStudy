@@ -1,8 +1,10 @@
 package org.example
 
-import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.{Column, SparkSession, functions => F}
 import org.apache.spark.sql.catalyst.dsl.expressions.{DslAttr, StringToAttributeConversionHelper}
-import org.apache.spark.sql.types.{BooleanType, FloatType, IntegerType, StringType, StructField, StructType}
+import org.apache.spark.sql.types.{BooleanType, DateType, FloatType, IntegerType, StringType, StructField, StructType}
+import org.apache.spark.sql.functions.{col, _}
+import org.apache.spark.sql.catalyst.expressions.Expression
 
 object BomberosSF {
 
@@ -14,12 +16,155 @@ object BomberosSF {
       .getOrCreate()
 
     //Forma de leer un csv crear un datafreame sin crear Schema usando samplinRatio
-    val dataDF = spark.read
+    val fireDF = spark.read
       .option("samplingRatio", 0.001)
       .option("header", true)
       .csv("sf-fire-calls.csv")
 
-    dataDF.show()
+    //dataDF.show()
+
+    //Mostramos las intervenciones diferentes a indicente medico
+    /*val fewFireDF = fireDF
+      .select("IncidentNumber", "AvailableDtTm", "CallType")
+      .where(col("CallType") =!= "Medical Incident")
+    fewFireDF.show(5, false)
+
+    //Mostramos las las diferentes causas de llamadas
+    fireDF
+      .select("CallType")
+      .where(col("CallType").isNotNull)
+      .agg(countDistinct("CallType") as "DistinctCallTypes")
+      .show()
+
+    //Listamos las diferentes causas
+    val listarDF = fireDF
+      .select("CallType")
+      .where(col("CallType").isNotNull)
+      .distinct()
+      listarDF.show(10, false)*/
+
+    //Cambiar el nombre de una columna usando withColumnRenamed Delay pasa a ResponseDelay...
+    val newFireDF = fireDF.withColumnRenamed("Delay", "ResponseDelayedinMins")
+    newFireDF
+      .select("ResponseDelayedinMins")
+      .where(col("ResponseDelayedinMins") > 5) // seleccionamos los de valor menor que 5
+      .show(5, false)
+
+    //Cambiar el tipo de dato de una columna. y renombramos la columna
+    /*fireDF
+      .select("CallDate", "WatchDate", "AvailableDtTm")
+      .show(5, false)*/
+
+    val fireTsDF = newFireDF
+      .withColumn("IncidentDate", to_timestamp(col("CallDate"), "MM/dd/yyyy")) //renombramos la columna
+      .drop("CallDate")   // marca la columna que cambiamos
+      .withColumn("OnWatchDate", to_timestamp(col("WatchDate"), "MM/dd/yyyy"))
+      .drop("WatchDate")
+      .withColumn("AvailableDtTS", to_timestamp(col("AvailableDtTm"), "MM/dd/yyyy hh:mm:ss a"))
+      .drop("AvailableDtTm")
+
+    /*fireTsDF
+      .select("IncidentDate", "OnWatchDate", "AvailableDtTS")
+      .show(5, false)*/
+
+    //Devido a este cambio ya podemos interactuar con las fechas usando Years Moth o Day
+    // Usamos Year para ver lso diferentes años de los que hay datos.
+    /*fireTsDF
+      .select(year(col("IncidentDate")))
+      .distinct()
+      .orderBy(year(col("IncidentDate")))
+      .show()*/
+
+    // Indicar los tipos de llamada que mas se repiten
+    /*fireTsDF
+      .select("CallType")
+      .where(col("CallType").isNotNull)
+      .groupBy("CallType")
+      .count()
+      .orderBy(desc("count"))
+      .show(10, false)*/
+
+    //Operaciones de min max y media
+    /*fireTsDF
+      .select(F.sum("NumAlarms"), F.avg("ResponseDelayedinMins"),
+        F.min("ResponseDelayedinMins"), F.max("ResponseDelayedinMins"))
+      .show()*/
+
+    val fire18DF = fireTsDF
+      .select("*")
+      .where(year(col("IncidentDate")) === 2018)
+
+    /*fire18DF
+      .select(col("CallType"))
+      .distinct()
+      .show(10,false)*/
+
+    /*fire18DF
+      .select(month(col("IncidentDate"))as("meses"))
+      .groupBy("meses")
+      .count()
+      .orderBy(desc("count"))
+      .show(1)
+
+    fire18DF
+      .select(col("Neighborhood"))
+      .groupBy("Neighborhood")
+      .count()
+      .orderBy(desc("count"))
+      .show(5)*/
+
+    // analizamos los barrios donde tardan mas en llegar
+    fire18DF
+      .select("ResponseDelayedinMins","Neighborhood")
+      .groupBy("Neighborhood")
+      .agg(sum("ResponseDelayedinMins"))
+      .orderBy(desc("sum(ResponseDelayedinMins)"))
+      .show(5,false)
+
+
+    // Analizamos la cantidad de llamadas por la semana en la que han ocurrido.
+    fire18DF
+      .select(col("OnWatchDate" ))
+      .groupBy(weekofyear(col("OnWatchDate")))
+      .count()
+      .orderBy(desc("count"))
+      .show()
+
+
+    //Cambie el tipo de fecha
+    /*def strToDate(col: Column): Column = {
+      val formats: Seq[String] = Seq("dd-MM-yyyy HH:mm:SS", "yyyy-MM-dd HH:mm:SS", "dd-MM-yyyy", "yyyy-MM-dd")
+      coalesce(formats.map(f => to_timestamp(col, f).cast(DateType)): _*)
+    }
+
+    fire18DF
+      .withColumn("Cambio",strToDate(col("OnWatchDate")))*/
+
+
+    /*fire18DF
+      .select(date_format(to_date(col("OnWatchDate")),"W"))
+      .show()*/
+
+    fire18DF
+      .select(col("Neighborhood"),col("IncidentDate"),col("Zipcode"))
+      .where(col("Neighborhood").isNotNull)
+      .groupBy( "Neighborhood","Zipcode")
+      .count()
+      .orderBy(desc("count"))
+      .show()
+
+    /*¿Cómo podemos utilizar archivos Parquet o tablas SQL para almacenar estos datos y
+    leerlos de nuevo?
+
+    Creando el archivo con las tablas resultantes.
+     */
+
+    // todo Guardar una tabla con el contenido de dataDF con la extension parquet
+    /* val parquetPath = "C:/Users/franciscojavier.lara/Desktop/Teoria/BigData/Recursos/Bomberos"
+    dataDF.write.format("parquet").save(parquetPath)
+
+    dataDF.write.format("parquet").saveAsTable(parquetPath) */// parecido al anterior*/
+
 
     // Leer un csv y crear un DataFrame usando un Schema definido.
     /*val fireSchema = StructType(Array(StructField("CallNumber", IntegerType, true),
@@ -55,19 +200,14 @@ object BomberosSF {
       .option("header", "true")
       .csv("sf-fire-calls.csv")
 
+    fireDF.show()
+    fireDF.printSchema()
 
-    fireDF.show()*/
 
-    //Guardar una tabla con el contenido de dataDF con la extension parquet
-   /* val parquetPath = "C:/Users/franciscojavier.lara/Desktop/Teoria/BigData/Recursos/Bomberos"
-    dataDF.write.format("parquet").save(parquetPath)
 
-    dataDF.write.format("parquet").saveAsTable(parquetPath) */// parecido al anterior
 
-    val fewFireDF = dataDF
-      .select("IncidentNumber", "AvailableDtTm", "CallType")
-      .where($"CallType" != "Medical Incident")
-    fewFireDF.show(5, false)
+
+
 
 
   }
