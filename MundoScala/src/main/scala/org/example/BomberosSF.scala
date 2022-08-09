@@ -90,15 +90,18 @@ object BomberosSF {
         F.min("ResponseDelayedinMins"), F.max("ResponseDelayedinMins"))
       .show()*/
 
+    //Cremaos un DF que contenga solo los datos de 2018
     val fire18DF = fireTsDF
       .select("*")
       .where(year(col("IncidentDate")) === 2018)
 
+    // Tipos de llamadas realizadas en 2018
     /*fire18DF
       .select(col("CallType"))
       .distinct()
       .show(10,false)*/
 
+    //Agrupamos por meses para ver el mes con mas llamadas
     /*fire18DF
       .select(month(col("IncidentDate"))as("meses"))
       .groupBy("meses")
@@ -106,6 +109,7 @@ object BomberosSF {
       .orderBy(desc("count"))
       .show(1)
 
+    // Agrupamos por barrio apra ver en el que producen mas llamadas
     fire18DF
       .select(col("Neighborhood"))
       .groupBy("Neighborhood")
@@ -130,21 +134,20 @@ object BomberosSF {
       .orderBy(desc("count"))
       .show()
 
-
+    // todo esto no esta comprobado que funcione
     //Cambie el tipo de fecha
     /*def strToDate(col: Column): Column = {
       val formats: Seq[String] = Seq("dd-MM-yyyy HH:mm:SS", "yyyy-MM-dd HH:mm:SS", "dd-MM-yyyy", "yyyy-MM-dd")
       coalesce(formats.map(f => to_timestamp(col, f).cast(DateType)): _*)
     }
-
     fire18DF
       .withColumn("Cambio",strToDate(col("OnWatchDate")))*/
-
 
     /*fire18DF
       .select(date_format(to_date(col("OnWatchDate")),"W"))
       .show()*/
 
+    // ver si tiene relacion el barrio, el codigo postal y el numero de llamadas.
     fire18DF
       .select(col("Neighborhood"),col("IncidentDate"),col("Zipcode"))
       .where(col("Neighborhood").isNotNull)
@@ -201,7 +204,7 @@ object BomberosSF {
       .csv("sf-fire-calls.csv")
 
     fireDF.show()
-    fireDF.printSchema()
+    fireDF.printSchema()*/
 
 
 

@@ -77,7 +77,7 @@ object DeviceJson {
 
 
     // mostrar los paises con menos CO2
-    val dsTemp2 = ds
+    val dsTemp3 = ds
       .select($"c02_level", $"cca2", $"cca3", $"cn", $"device_name")
       .orderBy("c02_level")
       .as[Deviceco2]

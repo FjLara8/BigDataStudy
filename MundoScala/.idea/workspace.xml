@@ -62,7 +62,7 @@
       <command value="mvn clean install" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.DeviceJson">
+  <component name="RunManager" selected="Application.Cap5ExternalData">
     <configuration name="BomberosSF" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="org.example.BomberosSF" />
       <module name="MundoScala" />
@@ -76,6 +76,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Cap5ExternalData" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="Cap5ExternalData" />
+      <module name="MundoScala" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="DeviceJson" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="DeviceJson" />
       <module name="MundoScala" />
@@ -83,52 +90,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MnMsql" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="org.example.MnMsql" />
+    <configuration name="RetrasoVuelos" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="RetrasoVuelos" />
       <module name="MundoScala" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SQLspark3" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="org.example.SQLspark3" />
+    <configuration name="SqlDatabase" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="SqlDatabase" />
       <module name="MundoScala" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="org.example.MnMcount" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="org.example.MnMcount" />
-      <module name="MundoScala" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Cap5ExternalData" />
+        <item itemvalue="Application.SqlDatabase" />
+        <item itemvalue="Application.RetrasoVuelos" />
         <item itemvalue="Application.DeviceJson" />
         <item itemvalue="Application.BomberosSF" />
-        <item itemvalue="Application.MnMsql" />
-        <item itemvalue="Application.org.example.MnMcount" />
-        <item itemvalue="Application.SQLspark3" />
       </list>
     </recent_temporary>
   </component>
