@@ -2,7 +2,7 @@ import javafx.beans.binding.Bindings.select
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.catalyst.ScalaReflection.universe.show
 import org.apache.spark.sql.catalyst.dsl.expressions.{DslExpression, DslSymbol}
-import org.apache.spark.sql.functions.{col, date_format, desc, month, to_date, to_timestamp, when}
+import org.apache.spark.sql.functions.{col, date_format, desc, expr, month, to_date, to_timestamp, when}
 
 import scala.reflect.internal.util.TriState.False
 
@@ -89,6 +89,10 @@ object RetrasoVuelos {
      .alias("Flight_Delays"))
      .orderBy(desc("delay"))
      .show()*/
+   /*val df2 =  df.withColumn("Flight_Delays"
+     ,expr("CASE when 'delay' > 360 , THEN 'Very Long Delays' ,CASE when 'delay' < 360 and 'delay' > 120 ,'Long Delays', CASE when 'delay' < 120 and 'delay' > 60 , 'Short Delays',CASE when 'delay' < 120  and 'delay' > 60, THEN 'Short Delays,CASE when 'delay' < 60  and 'delay' >0, THEN 'Tolerable Delays' ELSE 'no delais' END"))
+     .orderBy(desc("delay"))
+     .show()*/
 
 
 
@@ -102,6 +106,8 @@ object RetrasoVuelos {
    spark.sql("""SELECT distance, origin, destination
     FROM us_delay_flights_tbl WHERE distance > 1000
     ORDER BY distance DESC""").show(10)
+
+
 
  }
 

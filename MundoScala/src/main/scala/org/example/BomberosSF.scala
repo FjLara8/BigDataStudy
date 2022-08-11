@@ -21,6 +21,39 @@ object BomberosSF {
       .option("header", true)
       .csv("sf-fire-calls.csv")
 
+    val fireSchema = StructType(Array(StructField("CallNumber", IntegerType, true),
+      StructField("UnitID", StringType, true),
+      StructField("IncidentNumber", IntegerType, true),
+      StructField("CallType", StringType, true),
+      StructField("CallDate", StringType, true),
+      StructField("WatchDate", StringType, true),
+      StructField("CallFinalDisposition", StringType, true),
+      StructField("AvailableDtTm", StringType, true),
+      StructField("Address", StringType, true),
+      StructField("City", StringType, true),
+      StructField("Zipcode", IntegerType, true),
+      StructField("Battalion", StringType, true),
+      StructField("StationArea", StringType, true),
+      StructField("Box", StringType, true),
+      StructField("OriginalPriority", StringType, true),
+      StructField("Priority", StringType, true),
+      StructField("FinalPriority", IntegerType, true),
+      StructField("ALSUnit", BooleanType, true),
+      StructField("CallTypeGroup", StringType, true),
+      StructField("NumAlarms", IntegerType, true),
+      StructField("UnitType", StringType, true),
+      StructField("UnitSequenceInCallDispatch", IntegerType, true),
+      StructField("FirePreventionDistrict", StringType, true),
+      StructField("SupervisorDistrict", StringType, true),
+      StructField("Neighborhood", StringType, true),
+      StructField("Location", StringType, true),
+      StructField("RowID", StringType, true),
+      StructField("Delay", FloatType, true)))
+
+    val fireDF2 = spark.read.schema(fireSchema)
+      .option("header", "true")
+      .csv("sf-fire-calls.csv")
+
     //dataDF.show()
 
     //Mostramos las intervenciones diferentes a indicente medico
@@ -134,18 +167,6 @@ object BomberosSF {
       .orderBy(desc("count"))
       .show()
 
-    // todo esto no esta comprobado que funcione
-    //Cambie el tipo de fecha
-    /*def strToDate(col: Column): Column = {
-      val formats: Seq[String] = Seq("dd-MM-yyyy HH:mm:SS", "yyyy-MM-dd HH:mm:SS", "dd-MM-yyyy", "yyyy-MM-dd")
-      coalesce(formats.map(f => to_timestamp(col, f).cast(DateType)): _*)
-    }
-    fire18DF
-      .withColumn("Cambio",strToDate(col("OnWatchDate")))*/
-
-    /*fire18DF
-      .select(date_format(to_date(col("OnWatchDate")),"W"))
-      .show()*/
 
     // ver si tiene relacion el barrio, el codigo postal y el numero de llamadas.
     fire18DF
@@ -155,6 +176,15 @@ object BomberosSF {
       .count()
       .orderBy(desc("count"))
       .show()
+
+    //Para calcular la correlacion entre varios datos, no funciona con string
+    val correlacion = fireDF2
+      .select(col("Neighborhood"),col("Zipcode"))
+      .groupBy(col("Neighborhood"),col("Zipcode"))
+      .count()
+      .stat.corr("count", "Zipcode")
+
+    println("La correlación es de:" + correlacion)
 
     /*¿Cómo podemos utilizar archivos Parquet o tablas SQL para almacenar estos datos y
     leerlos de nuevo?

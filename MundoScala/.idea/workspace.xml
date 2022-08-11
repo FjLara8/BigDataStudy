@@ -62,7 +62,7 @@
       <command value="mvn clean install" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.Cap5ExternalData">
+  <component name="RunManager" selected="Application.Cap5EjConect">
     <configuration name="BomberosSF" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="org.example.BomberosSF" />
       <module name="MundoScala" />
@@ -76,6 +76,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Cap5EjConect" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="Cap5EjConect" />
+      <module name="MundoScala" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Cap5ExternalData" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="Cap5ExternalData" />
       <module name="MundoScala" />
@@ -83,8 +90,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DeviceJson" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="DeviceJson" />
+    <configuration name="Cap5Vuelos" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="Cap5Vuelos" />
       <module name="MundoScala" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -97,19 +104,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SqlDatabase" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="SqlDatabase" />
-      <module name="MundoScala" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Cap5EjConect" />
+        <item itemvalue="Application.Cap5Vuelos" />
         <item itemvalue="Application.Cap5ExternalData" />
-        <item itemvalue="Application.SqlDatabase" />
         <item itemvalue="Application.RetrasoVuelos" />
-        <item itemvalue="Application.DeviceJson" />
         <item itemvalue="Application.BomberosSF" />
       </list>
     </recent_temporary>
