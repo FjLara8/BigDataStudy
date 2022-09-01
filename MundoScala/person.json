@@ -1,0 +1,6 @@
+{"Id":1, "firstName": "Jules", "lastName":"Damji", "gender":"F", "birthDate":"1-4-2016", "salary": 4535, "ssn": "Insta"}
+{"Id":2, "firstName": "Brooke","lastName": "Wenig","gender": "M", "birthDate": "5-5-2018", "salary":8908, "ssn": "Tinder"}
+{"Id":3, "firstName": "Denny", "lastName": "Lee", "gender": "F","birthDate": "6-7-2019","salary": 7659, "ssn": "LinkedIn"}
+{"Id":4, "firstName":"Tathagata", "lastName": "Das","gender": "M", "birthDate": "5-12-2018", "salary": 10568, "ssn": "FB"}
+{"Id":5, "firstName": "Matei","lastName": "Zaharia","gender": "F", "birthDate": "5-14-2014", "salary": 40578, "ssn": "Web"}
+{"Id":6, "firstName": "Reynold", "lastName": "Xin", "gender": "M", "birthDate": "3-2-2015", "salary": 25568, "ssn": "Twitter" }

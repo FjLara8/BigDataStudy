@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e0b3b3c7-6983-477d-bc96-15c81b9921e8" name="Changes" comment="" />
+    <list default="true" id="e0b3b3c7-6983-477d-bc96-15c81b9921e8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../Practica_Padron/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../HolaMundo/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../HolaMundo/.idea/vcs.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,38 +47,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/franciscojavier.lara/Desktop/Teoria/BigData/Ejercicios/RddPruebas&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.48505747&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.scala.compiler.ScalaCompileServerForm&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "C:/Users/franciscojavier.lara/Desktop/Teoria/BigData/Ejercicios/MundoScala",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.48505747",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.scala.compiler.ScalaCompileServerForm"
   }
-}</component>
+}]]></component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn clean" />
       <command value="mvn clean install" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.Cap5EjConect">
-    <configuration name="BomberosSF" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="org.example.BomberosSF" />
-      <module name="MundoScala" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Application.Cap6Dataset">
     <configuration name="Cap5EjConect" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="Cap5EjConect" />
       <module name="MundoScala" />
@@ -97,6 +87,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Cap6Dataset" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="Cap6Dataset" />
+      <module name="MundoScala" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="RetrasoVuelos" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="RetrasoVuelos" />
       <module name="MundoScala" />
@@ -106,11 +103,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Cap6Dataset" />
         <item itemvalue="Application.Cap5EjConect" />
         <item itemvalue="Application.Cap5Vuelos" />
         <item itemvalue="Application.Cap5ExternalData" />
         <item itemvalue="Application.RetrasoVuelos" />
-        <item itemvalue="Application.BomberosSF" />
       </list>
     </recent_temporary>
   </component>

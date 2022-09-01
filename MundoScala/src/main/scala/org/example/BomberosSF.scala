@@ -62,7 +62,7 @@ object BomberosSF {
       .where(col("CallType") =!= "Medical Incident")
     fewFireDF.show(5, false)
 
-    //Mostramos las las diferentes causas de llamadas
+    //Mostramos las CANTIDAD de diferentes causas de llamadas
     fireDF
       .select("CallType")
       .where(col("CallType").isNotNull)

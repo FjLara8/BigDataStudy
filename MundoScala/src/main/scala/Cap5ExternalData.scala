@@ -60,8 +60,8 @@ object Cap5ExternalData {
 
     // Read Option 2: Loading data from a JDBC source using jdbc method
     // Create connection properties
-    /*import java.util.Properties
-    val cxnProp = new Properties()
+    import java.util.Properties
+    /*val cxnProp = new Properties()
     cxnProp.put("user", "[USERNAME]")
     cxnProp.put("password", "[PASSWORD]")*/
 

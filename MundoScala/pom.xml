@@ -53,6 +53,11 @@
       <artifactId>spark-sql_2.13</artifactId>
       <version>3.2.1</version>
     </dependency>
+    <dependency>
+      <groupId>com.microsoft.sqlserver</groupId>
+      <artifactId>mssql-jdbc</artifactId>
+      <version>11.2.0.jre8</version>
+    </dependency>
   </dependencies>
 
   <build>

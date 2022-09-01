@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="420fae40-cb0b-464e-976b-6eb2e029d1c5" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../HolaMundo/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../HolaMundo/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MundoScala/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MundoScala/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MundoScala/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MundoScala/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MundoScala/src/main/scala/Cap5EjConect.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../MundoScala/src/main/scala/Cap5EjConect.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MundoScala/src/main/scala/Cap5ExternalData.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../MundoScala/src/main/scala/Cap5ExternalData.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MundoScala/src/main/scala/Cap5Vuelos.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../MundoScala/src/main/scala/Cap5Vuelos.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MundoScala/src/main/scala/org/example/BomberosSF.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../MundoScala/src/main/scala/org/example/BomberosSF.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MundoScala/src/main/scala/org/example/PMun.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../MundoScala/src/main/scala/org/example/PMun.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MundoScala/target/MundoScala-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../MundoScala/target/MundoScala-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MundoScala/target/classes/Cap5EjConect$.class" beforeDir="false" afterPath="$PROJECT_DIR$/../MundoScala/target/classes/Cap5EjConect$.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MundoScala/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../MundoScala/target/maven-archiver/pom.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectId" id="2Dhx7keqDUNk9v8LB0X0ygPizPj" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/franciscojavier.lara/Desktop/Teoria/BigData/Ejercicios/Practica_Padron&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
+  }
+}</component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean install" />
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.padron6">
+    <configuration name="Padron2" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="Padron2" />
+      <module name="Practica_Padron" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="padron" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="padron" />
+      <module name="Practica_Padron" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="padron6" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="padron6" />
+      <module name="Practica_Padron" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.padron6" />
+        <item itemvalue="Application.Padron2" />
+        <item itemvalue="Application.padron" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="420fae40-cb0b-464e-976b-6eb2e029d1c5" name="Changes" comment="" />
+      <created>1661164954632</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1661164954632</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

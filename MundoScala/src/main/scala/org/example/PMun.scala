@@ -128,7 +128,7 @@ def leer(sc : SparkContext): Unit ={
 
   val nulasB = nulasA.flatMap(_.split(","))
 
-
+//convertir en minusculas
   val datosB = datosA.flatMap(line => line.split(" "))
     .map(x=>x)
     .map(x=> x.toLowerCase())

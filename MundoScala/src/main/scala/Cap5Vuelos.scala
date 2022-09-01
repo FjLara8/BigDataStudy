@@ -70,7 +70,7 @@ object Cap5Vuelos {
     import org.apache.spark.sql.expressions.Window
 
 
-    // todo No me deja crear la tabla medienate CREATE TABLE
+    // todo No me deja crear la tabla medienate CREATE TABLE,no deja por que no tiene siotio donde hacerlo como hive o tal
     /*spark.sql("""CREATE OR REPLACE TEMP VIEW departureDelaysWindow AS SELECT origin, destination, SUM(delay) AS TotalDelays
                 FROM departureDelays
                 WHERE origin IN ('SEA', 'SFO', 'JFK')
@@ -78,7 +78,7 @@ object Cap5Vuelos {
                 GROUP BY origin, destination""".stripMargin)
     spark.sql("""SELECT * FROM departureDelaysWindow""").show()
 
-    //todo Where origin ='[ORIGIN]' tampoco funciona
+    //todo Where origin ='[ORIGIN]' tampoco funciona, '[ORIGIN]' no exite directamente es para que tu pongas lo que necesites.
     spark.sql("""SELECT origin, destination, SUM(TotalDelays) AS TotalDelays2
                 |FROM departureDelaysWindow
                 |WHERE origin = 'JFK' OR origin = 'SEA' OR origin = 'SFO'
