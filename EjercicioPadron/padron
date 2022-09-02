@@ -1,0 +1,314 @@
+1.1 Crear una base de datos
+Create database datos_padron
+*luego usar esta db 
+USE datos_padron
+ 
+
+1.2 Crear una nueva tabla con los datos del padron y con la separacion de; eliminando " innecesarias y el header.	
+create table if not exists datos_padron.padron_txt(  
+COD_DISTRITO int,  
+DESC_DISTRITO string,  
+COD_DIST_BARRIO int,  
+DESC_BARRIO string,  
+COD_BARRIO int,  
+COD_DIST_SECCION int,  
+COD_SECCION int,  
+COD_EDAD_INT int,  
+EspanolesHombres int,  
+EspanolesMujeres int,  
+ExtranjerosHombres int,  
+ExtranjerosMujeres int)  
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde' 
+WITH SERDEPROPERTIES( 
+'separatorChar' = ';', 
+'quoteChar' = '"') 
+Stored as textfile 
+TBLPROPERTIES("skip.header.line.count"="1");
+
+1.3 Crear nueva tabla eliminando los espacios innecesarios usando la tabla anterior.
+create table if not exists padron_txt2 AS 
+SELECT COD_DISTRITO int,  
+LTRIM(DESC_DISTRITO),  
+COD_DIST_BARRIO,  
+LTRIM(DESC_BARRIO),  
+COD_BARRIO,  
+COD_DIST_SECCION,  
+COD_SECCION,  
+COD_EDAD_INT,  
+EspanolesHombres,  
+EspanolesMujeres,  
+ExtranjerosHombres,  
+ExtranjerosMujeres FROM padron_txt
+
+
+1.4=> si introcuces la palabra local indica que el archivo es cargado desde el lugar donde estas trabajando con lo que este ha de tener dicho archivo.
+
+//Para indicar a la tabla de donde coger los datos  Local por que se encuentra en el lugar donde trabajamos.
+LOAD DATA LOCAL INPATH '/media/sf_Compartida2/Rango_Edades_Seccion_202208.csv' 
+into table padron_txt;
+
+
+1.5 En este caso eliminamos los datos que estan vacios ya que no osn nulos ni numericos y nos daran problemas al crear Querys:
+
+CREATE TABLE IF NOT EXISTS padron_txtLimpiob AS
+SELECT COD_DISTRITO, DESC_DISTRITO, COD_DIST_BARRIO, DESC_BARRIO, COD_BARRIO, COD_DIST_SECCION, COD_SECCION, COD_EDAD_INT, CASE 
+WHEN length(EspanolesHombres) = 0 THEN '0' else EspanolesHombres END AS EspanolesHombres2,
+CASE WHEN length(EspanolesMujeres) = 0 THEN '0' else EspanolesMujeres END AS EspanolesMujeres2,
+CASE WHEN length(ExtranjerosHombres) = 0 THEN '0' else ExtranjerosHombres END AS ExtranjerosHombres2,
+CASE WHEN length(ExtranjerosMujeres) = 0 THEN '0' else ExtranjerosMujeres END AS ExtranjerosMujeres2
+FROM padron_txtb;
+
+1.6 Usar Serde para crear una tabla con Expresiones Regulares y en estas eliminar los espacios en blanco las "" y demas datos innecesarios:
+
+create table if not exists datos_padron.padron_txt2(  
+COD_DISTRITO int,  
+DESC_DISTRITO string,  
+COD_DIST_BARRIO int,  
+DESC_BARRIO string,  
+COD_BARRIO int,  
+COD_DIST_SECCION int,  
+COD_SECCION int,  
+COD_EDAD_INT int,  
+EspanolesHombres int,  
+EspanolesMujeres int,  
+ExtranjerosHombres int,  
+ExtranjerosMujeres int)  
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.RegexSerDe' 
+WITH SERDEPROPERTIES('input.regex'= '\"(\d+)\";\"(\w+(?:[ \-]+\w+)*)\s*\";\"(\d+)\";\"(\w+(?:[ \-]+\w+)*)\s*\";\"(\d+)\";\"(\d+)\";\"(\d+)\";\"(\d+)\";\"(\d*)\";\"(\d*)\";\"(\d*)\";\"(\d*)\";\"') 
+Stored as textfile 
+TBLPROPERTIES("skip.header.line.count"="1");
+
+lo que se encuentra entre() es lo que queremos coger el resto va fuera pero hay que indicarle que se va a encontrar ejemplo \" primoer vera comillas que no me valen, (\d+) veremos caracteres numericos y pueden ser mas de 1 por eso el +, volvera a ver " y luego ; nuevas " (\w+(?:[ \-]+\w+)*)\s*\";\"(\d+) indicamos que es texto y luego ?: puede encontrarse un espacio o un - [ \-] seguido de mas letras\W+ luego puede haber espacios en blanco\s, las 4 ultimas filas contienen elementos vacios asi que le decimos que coga tyanto numeros como elementos no alfaveticos\d*.
+
+2.1¿Que son las CTAS)?
+- Create Table As Select
+
+2.2 Crear tabla padron_parquet a traves de la tabla padron_usando CTAS
+
+CREATE TABLE IF NOT EXISTS datos_padron.padron_txtParquet
+Stored as parquet
+AS
+SELECT *
+FROM padron_txt;
+
+2.3 crear la tabla pero esta vez limpia con CTAS para ello hacemos lo mismo pero el Fom usamos el de una tabla limpia.
+
+SELECT COD_DISTRITO FROM padron_txt WHERE length(COD_DISTRITO) = 0;
+SELECT DESC_DISTRITO FROM padron_txt WHERE length(DESC_DISTRITO) = 0;
+SELECT COD_DIST_BARRIO FROM padron_txt WHERE length(COD_DIST_BARRIO) = 0;
+SELECT DESC_BARRIO FROM padron_txt WHERE length(DESC_BARRIO) = 0;
+SELECT COD_BARRIO FROM padron_txt WHERE length(COD_BARRIO) = 0;
+SELECT COD_DIST_SECCION FROM padron_txt WHERE length(COD_DIST_SECCION) = 0;
+SELECT COD_SECCION FROM padron_txt WHERE length(COD_SECCION) = 0;
+SELECT COD_EDAD_INT FROM padron_txt WHERE length(COD_EDAD_INT) = 0;
+SELECT EspanolesHombres FROM padron_txt WHERE length(EspanolesHombres) = 0;
+SELECT EspanolesMujeres FROM padron_txt WHERE length(EspanolesMujeres) = 0;
+SELECT ExtranjerosHombres FROM padron_txt WHERE length(ExtranjerosHombres) = 0;
+SELECT ExtranjerosMujeres FROM padron_txt WHERE length(ExtranjerosMujeres) = 0;
+
+CREATE TABLE IF NOT EXISTS padron_limpio AS
+SELECT COD_DISTRITO, DESC_DISTRITO, COD_DIST_BARRIO, DESC_BARRIO, COD_BARRIO, COD_DIST_SECCION, COD_SECCION, COD_EDAD_INT, CASE 
+WHEN length(EspanolesHombres) = 0 THEN '0' else EspanolesHombres END AS EspanolesHombres2,
+CASE WHEN length(EspanolesMujeres) = 0 THEN '0' else EspanolesMujeres END AS EspanolesMujeres2,
+CASE WHEN length(ExtranjerosHombres) = 0 THEN '0' else ExtranjerosHombres END AS ExtranjerosHombres2,
+CASE WHEN length(ExtranjerosMujeres) = 0 THEN '0' else ExtranjerosMujeres END AS ExtranjerosMujeres2
+FROM padron_txt2;
+
+En caso de tener valores null osamos la siguiente:
+
+CREATE TABLE IF NOT EXISTS padron_limpio AS
+SELECT COD_DISTRITO, DESC_DISTRITO, COD_DIST_BARRIO, DESC_BARRIO, COD_BARRIO, COD_DIST_SECCION, COD_SECCION, COD_EDAD_INT, 
+NVL(EspanolesHombres, 0) AS EspanolesHombres,
+NVL(EspanolesMujeres, 0) AS EspanolesMujeres,
+NVL(ExtranjerosHombres, 0) AS ExtranjerosHombres2,
+NVL(ExtranjerosMujeres, 0) AS ExtranjerosMujeres2
+FROM padron_txt2;
+ 
+ SELECT * FROM padron_limpio;
+
+2.4 Crear tablas desde 0 sin CTAS Luego habra que rellenarlas con Load.
+
+create table if not exists datos_padron.padron_parquet2b(  
+COD_DISTRITO int,  
+DESC_DISTRITO string,  
+COD_DIST_BARRIO int,  
+DESC_BARRIO string,  
+COD_BARRIO int,  
+COD_DIST_SECCION int,  
+COD_SECCION int,  
+COD_EDAD_INT int,  
+EspanolesHombres int,  
+EspanolesMujeres int,  
+ExtranjerosHombres int,  
+ExtranjerosMujeres int)  
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.RegexSerDe' 
+WITH SERDEPROPERTIES('input.regex'= '"(\\d+)";"(\\w+(?:[ \\-]+\\w+)*)\\s*";"(\\d+)";"(\\w+(?:[ \\-]+\\w+)*)\\s*";"(\\d+)";"(\\d+)";"(\\d+)";"(\\d+)";"(\\d*)";"(\\d*)";"(\\d*)";"(\\d*)"')
+Stored as parquet 
+TBLPROPERTIES("skip.header.line.count"="1");
+
+create table if not exists datos_padron.padron_parquet(  
+COD_DISTRITO int,  
+DESC_DISTRITO string,  
+COD_DIST_BARRIO int,  
+DESC_BARRIO string,  
+COD_BARRIO int,  
+COD_DIST_SECCION int,  
+COD_SECCION int,  
+COD_EDAD_INT int,  
+EspanolesHombres int,  
+EspanolesMujeres int,  
+ExtranjerosHombres int,  
+ExtranjerosMujeres int)  
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde' 
+WITH SERDEPROPERTIES( 
+'separatorChar' = ';') 
+Stored as parquet 
+TBLPROPERTIES("skip.header.line.count"="1");
+
+ 
+2.5 El formato columnar parquet realiza el almacenamiento por columnas. de esta forma lee menos cantidad de datos y le permite ser eficiente a la hora de buscar informacion en nuestras tablas.
+
+2.6 Mostrar el tamaño de las tablas para comprobar que ocupan cada una.
+para mostra el tamaño hdfs dfs -ls -h url y muestra el tamaño.
+padron_txt => 21.6 MB
+padron_parquet => 857.2 kB
+padron_txt2 => 21.6 MB
+padron_parquet2 => 746.3 KB
+padron_limpio => 11.5 MB
+
+3.1 Impala es un motor de consultas SQL con codigo abierto para el procesamiento masivo en paralero de los datos almacenados en un cluster de computadoran funcionandlo con Hadoop.
+
+3.2 IMPALA soporta un procesamiento el paralelo, en caso de procesos grandes a veces divide la tarea y la reparte entre procesadores. por esto es mas rapido, por otro lado HIVE dispone de escalabilidad, seguridad y flexivilidad al disponer de MapReduce.
+
+3.3 Invalid metadatos => Muestra los metadatos de todas o una tabla como obsoletos. Esto hace que cuando haya alguna consulta con una tabla asi impala recarga los tedatso de dicha tabla.
+
+3.4 Para hacer un Ivalidate Metdata de una db entera:
+Use datos_padron;
+INVAIDATE METADATA;
+
+3.5 
+
+SELECT SUM(espanolesHombres), SUM(espanolesMujeres), SUM(ExtrangerosHombres), 
+SUM(ExtrangerosMujeres), DESC_DISTRITO, DESC_BARRIO FROM padron_parquet2
+GROUP BY DESC_DISTRITO,DESC_BARRIO;
+
+
+3.6 Conclusion en impala el tiempo es mucho menor.
+Impala parquet => 1.85  seg
+Hive Parquet => 1.47 min
+Hive txt => 1.32 min
+Impala txt2c => 4.9 seg
+
+3.7 Impala es mas rapido usando parquet que Hive.
+
+3.8 Si, impala es mas rapido.
+
+4 Tablas particionadas
+
+4.1 
+create table if not exists datos_padron.padron_particionado(  
+COD_DISTRITO int,
+COD_DIST_BARRIO int,  
+COD_BARRIO int,  
+COD_DIST_SECCION int,  
+COD_SECCION int,  
+COD_EDAD_INT int,  
+EspanolesHombres int,  
+EspanolesMujeres int,  
+ExtranjerosHombres int,  
+ExtranjerosMujeres int)  
+PARTITIONED BY (DESC_DISTRITO string, DESC_BARRIO string)
+Stored as parquet;
+
+4.2
+INSER INTO padron_particionado PARTITION(DESC_DISTRITO,DESC_BARRIO) 
+SELECT COD_DISTRITO,COD_DIST_BARRIO, COD_BARRIO, COD_DIST_SECCION, COD_SECCION, 
+COD_EDAD_INT, EspanolesHombres, EspanolesMujeres, ExtranjerosHombres,
+ExtranjerosMujeres, DESC_DISTRITO, DESC_BARRIO
+FROM padron_parquet2;
+
+4.3 INVAIDATE METADATA datos_padron.padron_particionado;
+
+4.4
+SELECT SUM(espanolesHombres), SUM(espanolesMujeres), SUM(ExtrangerosHombres), 
+SUM(ExtrangerosMujeres), DESC_DISTRITO, DESC_BARRIO 
+FROM padron_parquet2
+WHERE DESC_DISTRITO="CENTRO" OR DESC_DISTRITO="LATINA"
+OR DESC_DISTRITO="CHAMARTIN" OR DESC_DISTRITO="TETUAN"
+OR DESC_DISTRITO="VICALVARO"OR DESC_DISTRITO="BARAJAS"
+GROUP BY DESC_DISTRITO,DESC_BARRIO;
+
+4.5
+En hive:
+particionado => 2.20 min
+parquet => 2.44 min
+
+4.6
+Impala:
+particionado => 2.18 seg
+parquet => 2.4 seg
+
+4.7 
+SELECT MAX(espanolesHombres), MIN(espanolesMujeres), AVG(ExtrangerosHombres), 
+COUNT(ExtrangerosMujeres), DESC_DISTRITO, DESC_BARRIO 
+FROM padron_parquet2
+GROUP BY DESC_DISTRITO,DESC_BARRI;
+
+Impala
+Partition => 3.21 seg
+Parquet => 6.9 seg
+txtc => 4.7 seg
+Hive
+Partition => 57.65 seg
+Parquet => 58.59 seg
+txtc => 46.28 seg
+
+5.1 y 5.2 es solo crear la carpeta pero la creamos en:
+Applications/System Tools/ File Browser para acceder a todas las carpetas y aqui dentro de Ejercicios.
+
+5.3 Creamos la carpeta en HDFS en user/cloudera
+hadoop fs -mkdir /user/cloudera/padronHDFS
+
+5.4 Importar los datos de local a HDFS nos colocamos en la carpeta local que contiene los datos y hacemos:
+hadoop fs -put datos1 /user/cloudera/padronHDFS
+
+5.5 Crear tabla con 3 columnas separadas por , y delimitacion de fila por \n sin usar load.
+create table if not exists numeros.numeros_tbl(
+col1 int,
+col2 int,
+col3 int)
+ROW FORMAT delimited fields terminated by ','
+lines terminated by '\n';
+
+5.6 
+LOAD DATA INPATH '/user/cloudera/padronHDFS/datos1' 
+into table numeros_tbl;
+
+una vez introducidos los datos al buscarlos en user/cloudera/padronHDFS no se encuentra el archivo datos1, pero si en user/hive/warehouse, al borrar la tabla los datos desaparecen de todos sitios. hive los gestiona todo en el drop y lo elimina de warehouse.
+
+5.7 con tabla externa, los datos desaparecen de cloudera, pero aunque hagamos el drop permanecen en user/hive/warehouse.
+
+5.9
+Location muestra el contenido de la tabla que esta dentro de nuestro directorio datos1 ha de estar sola.
+
+create external table numeros_tbl(
+col1 int,
+col2 int,
+col3 int)
+ROW FORMAT delimited fields terminated by ','
+lines terminated by'\n'
+location'/user/cloudera/padronHDFS';
+
+select * from numeros_tbl;  //para ver si contiene algo.
+
+5.10 Al introducir los datos2 dentro del mismo directorio nos muestra tambien su contenido solo hay que hacer select para que muestre el contenido de datos2 que acabamos de incorporar a padronHDFS
+select * from numeros_tbl;
+
+5.11 Puedes añadir mas contenido simplemente añadiendolo al directorio mientras respetes el esquema.
+
+
+
+
+
+
+
