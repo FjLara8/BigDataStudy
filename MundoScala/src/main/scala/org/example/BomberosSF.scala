@@ -101,7 +101,7 @@ object BomberosSF {
       .show(5, false)*/
 
     //Devido a este cambio ya podemos interactuar con las fechas usando Years Moth o Day
-    // Usamos Year para ver lso diferentes años de los que hay datos.
+    //Usamos Year para ver lso diferentes años de los que hay datos.
     /*fireTsDF
       .select(year(col("IncidentDate")))
       .distinct()
